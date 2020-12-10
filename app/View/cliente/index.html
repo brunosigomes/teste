@@ -1,0 +1,83 @@
+<div class="container">
+	<h1 class="text-center mb-5">Clientes</h1>
+
+	{% if clientes != null %}
+	<table class="table table-striped text-center mb-5" id="table">
+		<thead>
+			<tr>
+				<th>
+					Id
+				</th>
+				<th>
+					Nome
+				</th>
+				<th>
+					CPF
+				</th>
+				<th>
+					Idade
+				</th>
+				<th>
+					Data de Cadastro
+				</th>
+				<th>
+					Ações
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for cliente in clientes %}
+			<tr>
+				<td>
+					{{ cliente.id }}
+				</td>
+				<td>
+					{{ cliente.nome }}
+				</td>
+				<td>
+					{{ cliente.cpf }}
+				</td>
+				<td>
+					{{ cliente.idade }}
+				</td>
+				<td class="data">
+					{{ cliente.data_cadastro }}
+				</td>
+				<td>
+					<a href="/teste/cliente/editar/{{ cliente.id }}" class="btn btn-sm btn-primary">Editar</a>
+					<a href="/teste/cliente/deletar/{{ cliente.id }}" class="btn btn-sm btn-danger">Deletar</a>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	{% endif %}
+
+	{% if mensagem != null %}
+
+	<div class="d-flex justify-content-center mb-5">
+		{{ mensagem }}
+	</div>
+
+	{% endif %}
+
+	<div class="col-md-4 m-auto">
+		<a href="/teste/cliente/cadastrar" class="btn btn-primary w-100">Adicionar cliente</a>		
+	</div>
+
+</div>
+<script>
+	(function () {
+		'use strict'
+
+		$(document).ready(function(){
+			document.querySelectorAll('.data').forEach((data) => {
+				$(data).mask('0000/00/00');
+				var get_data = $(data);
+				var data_formatada = get_data[0].innerText;
+				data_formatada = data_formatada.split('/').reverse().join('/');
+				data.innerText = data_formatada;
+			});
+		});
+	})()
+</script>

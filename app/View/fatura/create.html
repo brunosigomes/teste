@@ -1,0 +1,67 @@
+<div class="container">
+	<form class="row g-3 needs-validation" method="POST" action="/teste/fatura/cadastrar" novalidate>
+		<div class="col-md-4">
+			<label for="validationCustom01" class="form-label">Valor</label>
+			<input type="text" name="valor" class="form-control" id="validationCustom01" value="" required>
+			<div class="invalid-feedback">
+				Campo vazio.
+			</div>
+		</div>
+		<div class="col-md-4">
+			<label for="validationCustom02" class="form-label">Vencimento</label>
+			<input type="date" name="vencimento" class="form-control" id="validationCustom02" value="" required>
+			<div class="invalid-feedback">
+				Campo vazio.
+			</div>
+		</div>
+		<div class="col-md-4">
+			<label for="validationCustom03" class="form-label">Cliente</label>
+			<select name="cliente_id" class="form-control" id="validationCustom03" value="" required>
+				<option value="">selecione um...</option>
+				{% if clientes != null %}
+					{% for cliente in clientes %}
+						<option value="{{ cliente.id }}">{{ cliente.nome }}</option>
+					{% endfor %}
+				{% endif %}
+
+			</select>
+			<div class="invalid-feedback">
+				Campo vazio.
+			</div>
+		</div>
+		
+		<div class="col-12">
+			<button class="btn btn-primary" type="submit">Cadastrar</button>
+		</div>		
+	</form>
+	{% if mensagem != null %}
+
+	<div class="d-flex justify-content-center mb-5">
+		{{ mensagem }}
+	</div>
+
+	{% endif %}
+</div>
+<script>
+	(function () {
+		'use strict'
+
+		var forms = document.querySelectorAll('.needs-validation')
+
+		Array.prototype.slice.call(forms)
+		.forEach(function (form) {
+			form.addEventListener('submit', function (event) {
+				if (!form.checkValidity()) {
+					event.preventDefault()
+					event.stopPropagation()
+				}
+
+				form.classList.add('was-validated')
+			}, false)
+		})
+
+		$(document).ready(function(){
+			$('#validationCustom01').mask("#.##0,00", {reverse: true});
+		});
+	})()
+</script>

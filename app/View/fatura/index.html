@@ -1,0 +1,77 @@
+<div class="container">
+	<h1 class="text-center mb-5">Faturas</h1>
+
+	{% if faturas != null %}
+	<table class="table table-striped text-center mb-5" id="table">
+		<thead>
+			<tr>
+				<th>
+					Id
+				</th>
+				<th>
+					Valor
+				</th>
+				<th>
+					Vencimento
+				</th>
+				<th>
+					Cliente
+				</th>
+				<th>
+					Ações
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for fatura in faturas %}
+			<tr>
+				<td>
+					{{ fatura.id }}
+				</td>
+				<td>
+					{{ fatura.valor }}
+				</td>
+				<td class="data">
+					{{ fatura.vencimento }}
+				</td>
+				<td>
+					{{ fatura.cliente_id }} - {{ fatura.cliente_nome }}
+				</td>
+				<td>
+					<a href="/teste/fatura/editar/{{ fatura.id }}" class="btn btn-sm btn-primary">Editar</a>
+					<a href="/teste/fatura/deletar/{{ fatura.id }}" class="btn btn-sm btn-danger">Deletar</a>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	{% endif %}
+
+	{% if mensagem != null %}
+
+	<div class="d-flex justify-content-center mb-5">
+		{{ mensagem }}
+	</div>
+
+	{% endif %}
+
+	<div class="col-md-4 m-auto">
+		<a href="/teste/fatura/cadastrar" class="btn btn-primary w-100">Adicionar fatura</a>		
+	</div>
+
+</div>
+<script>
+	(function () {
+		'use strict'
+
+		$(document).ready(function(){
+			document.querySelectorAll('.data').forEach((data) => {
+				$(data).mask('0000/00/00');
+				var get_data = $(data);
+				var data_formatada = get_data[0].innerText;
+				data_formatada = data_formatada.split('/').reverse().join('/');
+				data.innerText = data_formatada;
+			});
+		});
+	})()
+</script>

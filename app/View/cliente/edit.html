@@ -1,0 +1,60 @@
+<div class="container">
+	<form class="row g-3 needs-validation" method="POST" action="/teste/cliente/editar" novalidate>
+		<input type="hidden" name="id" value="{{ cliente.id }}">
+		<div class="col-md-4">
+			<label for="validationCustom01" class="form-label">Nome</label>
+			<input type="text" name="nome" class="form-control" id="validationCustom01" value="{{ cliente.nome }}" required>
+			<div class="invalid-feedback">
+				Campo vazio.
+			</div>
+		</div>
+		<div class="col-md-4">
+			<label for="validationCustom02" class="form-label">CPF</label>
+			<input type="text" name="cpf" class="form-control" id="validationCustom02" value="{{ cliente.cpf }}" required>
+			<div class="invalid-feedback">
+				Campo vazio.
+			</div>
+		</div>
+		<div class="col-md-4">
+			<label for="validationCustom03" class="form-label">Idade</label>
+			<input type="text" name="idade" class="form-control" id="validationCustom03" value="{{ cliente.idade }}" required>
+			<div class="invalid-feedback">
+				Campo vazio.
+			</div>
+		</div>
+		
+		<div class="col-12">
+			<button class="btn btn-primary" type="submit">Salvar</button>
+		</div>		
+	</form>
+	{% if mensagem != null %}
+
+	<div class="d-flex justify-content-center mb-5">
+		{{ mensagem }}
+	</div>
+
+	{% endif %}
+</div>
+<script>
+	(function () {
+		'use strict'
+
+		var forms = document.querySelectorAll('.needs-validation')
+
+		Array.prototype.slice.call(forms)
+		.forEach(function (form) {
+			form.addEventListener('submit', function (event) {
+				if (!form.checkValidity()) {
+					event.preventDefault()
+					event.stopPropagation()
+				}
+
+				form.classList.add('was-validated')
+			}, false)
+		})
+
+		$(document).ready(function(){
+			$('#validationCustom02').mask("999.999.999-99", {clearIfNotMatch: true});
+		});
+	})()
+</script>

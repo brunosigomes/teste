@@ -1,0 +1,61 @@
+<div class="container">
+	<form class="row g-3 needs-validation" method="POST" action="/teste/fatura/editar" novalidate>
+		<input type="hidden" name="id" value="{{ fatura.id }}">
+		<div class="col-md-3">
+			<label class="form-label">ID Fatura</label>
+			<input type="text" class="form-control" value="{{ fatura.id }}" disabled>
+		</div>
+		<div class="col-md-3">
+			<label class="form-label">Cliente</label>
+			<input type="text" class="form-control" value="{{ fatura.cliente_nome }}" disabled>
+		</div>
+		<div class="col-md-3">
+			<label for="validationCustom01" class="form-label">Valor</label>
+			<input type="text" name="valor" class="form-control" id="validationCustom01" value="{{ fatura.valor }}" required>
+			<div class="invalid-feedback">
+				Campo vazio.
+			</div>
+		</div>
+		<div class="col-md-3">
+			<label for="validationCustom02" class="form-label">Vencimento</label>
+			<input type="date" name="vencimento" class="form-control" id="validationCustom02" value="{{ fatura.vencimento }}" required>
+			<div class="invalid-feedback">
+				Campo vazio.
+			</div>
+		</div>
+		
+		<div class="col-12">
+			<button class="btn btn-primary" type="submit">Salvar</button>
+		</div>		
+	</form>
+	{% if mensagem != null %}
+
+	<div class="d-flex justify-content-center mb-5">
+		{{ mensagem }}
+	</div>
+
+	{% endif %}
+</div>
+<script>
+	(function () {
+		'use strict'
+
+		var forms = document.querySelectorAll('.needs-validation')
+
+		Array.prototype.slice.call(forms)
+		.forEach(function (form) {
+			form.addEventListener('submit', function (event) {
+				if (!form.checkValidity()) {
+					event.preventDefault()
+					event.stopPropagation()
+				}
+
+				form.classList.add('was-validated')
+			}, false)
+		})
+
+		$(document).ready(function(){
+			$('#validationCustom01').mask("#.##0,00", {reverse: true});
+		});
+	})()
+</script>
